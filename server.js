@@ -3,15 +3,18 @@ const https = require("https");
 const express = require("express");
 const app = express();
 const { host, port } = require("./config");
+const languages = require("./src/apps/languages/routes");
 const accounts = require("./src/apps/accounts/routes");
 const pastes = require("./src/apps/pastes/routes");
+
 const { serverError } = require("./src/classes/errors");
 app.use(express.json());
 app.use((request, response, next) => {
     console.log(`${request.method}:${request.url}`);
-    response.setHeader( 'X-Powered-By', 'Pastep.Js' );
+    response.setHeader("X-Powered-By", "Pastep.Js");
     next();
 });
+app.use("/languages", languages);
 app.use("/accounts", accounts);
 app.use("/pastes", pastes);
 app.use(function(err, req, res, next) {

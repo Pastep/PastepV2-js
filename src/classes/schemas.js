@@ -30,6 +30,11 @@ const pasteSchema = Joi.object({
     password: Joi.string().alphanum(),
 });
 
+const languageGetSchema = Joi.object({
+    id: Joi.number(),
+    slug: Joi.string().alphanum(),
+}).xor("id", "slug");
+
 module.exports.loginSchemaValidate = (parameters) => {
     const result = loginSchema.validate(parameters);
     return result;
@@ -46,4 +51,8 @@ module.exports.getSchemaValidate = (parameters) => {
 
 module.exports.pasteSchemaValidate = (parameters) => {
     return pasteSchema.validate(parameters);
+};
+
+module.exports.languageGetSchemaValidate = (parameters) => {
+    return languageGetSchema.validate(parameters);
 };

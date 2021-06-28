@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { pasteSchemaValidate } = require("../../../../classes/schemas");
 const pasteDatabase = require("../../models/paste");
-const languageDatabase = require("../../../main/models/language");
+const languageDatabase = require("../../../languages/models/language");
 
 // view
 router.post("/", async(request, response) => {
