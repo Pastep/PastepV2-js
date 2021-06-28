@@ -1,12 +1,10 @@
 const mysql = require("mysql");
 const { serverError } = require("./errors");
-class base {
-    constructor(config) {
-        this.host = config.host;
-        this.port = config.port;
-        this.username = config.username;
-        this.password = config.password;
-        this.database = config.database;
+const { databaseConfig } = require("../../config");
+
+class databaseBase {
+    constructor(database) {
+        this.db = database;
     }
 
     uuid4() {
@@ -37,6 +35,35 @@ class base {
             }
         });
         return updateString + " ";
+    }
+
+    createQuery(SQL) {
+        return new Promise((resolve, reject) => {
+            this.db.ping((err) => {
+                if (err) {
+                    throw new Error("database is not connected.");
+                }
+                this.db.query(SQL, (err, result) => {
+                    if (err) {
+                        if (err.errno != 1062) {
+                            serverError(err);
+                        }
+                        return reject(err);
+                    }
+                    resolve(result);
+                });
+            });
+        });
+    }
+}
+
+class base {
+    constructor(config) {
+        this.host = config.host;
+        this.port = config.port;
+        this.username = config.username;
+        this.password = config.password;
+        this.database = config.database;
     }
 
     connect(log) {
@@ -76,23 +103,9 @@ class base {
             });
         }
     }
-
-    createQuery(SQL) {
-        return new Promise((resolve, reject) => {
-            this.db.ping((err) => {
-                if (err) {
-                    throw new Error("database is not connected.");
-                }
-                this.db.query(SQL, (err, result) => {
-                    if (err) {
-                        serverError(err);
-                        return reject(err);
-                    }
-                    resolve(result);
-                });
-            });
-        });
-    }
 }
+const database = new base(databaseConfig);
+database.connect();
 
-module.exports.base = base;
+module.exports.database = database.db;
+module.exports.databaseBase = databaseBase;

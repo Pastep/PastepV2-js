@@ -9,6 +9,7 @@ const { serverError } = require("./src/classes/errors");
 app.use(express.json());
 app.use((request, response, next) => {
     console.log(`${request.method}:${request.url}`);
+    response.setHeader( 'X-Powered-By', 'Pastep.Js' );
     next();
 });
 app.use("/accounts", accounts);

@@ -1,7 +1,5 @@
-const { databaseConfig } = require("../../../../config");
-const { base } = require("../../../classes/database");
-
-class paste extends base {
+const { databaseBase, database } = require("../../../classes/database");
+class paste extends databaseBase {
     create(user, name, title, content, mode, language, readme, password) {
         if (password) {
             password = `'${password}'`;
@@ -63,7 +61,5 @@ class paste extends base {
         return this.createQuery(updateString + "WHERE name='" + name + "'");
     }
 }
-const database = new paste(databaseConfig);
-database.connect();
-
-module.exports = database;
+const pasteDatabase = new paste(database);
+module.exports = pasteDatabase;

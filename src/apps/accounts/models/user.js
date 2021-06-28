@@ -1,7 +1,5 @@
-const { databaseConfig } = require("../../../../config");
-const { base } = require("../../../classes/database");
-
-class user extends base {
+const { database, databaseBase } = require("../../../classes/database");
+class user extends databaseBase {
     create(username, email, password) {
         return this.createQuery(
             "INSERT INTO `users` (`id`, `username`, `password`, `email`, `tmp_password`, `is_verified`, `verification_code`, `token`) VALUES (NULL, '" +
@@ -76,6 +74,5 @@ class user extends base {
         return this.createQuery(updateString + "WHERE email='" + email + "'");
     }
 }
-const database = new user(databaseConfig);
-database.connect();
-module.exports = database;
+const userDatabase = new user(database);
+module.exports = userDatabase;

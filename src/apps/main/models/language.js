@@ -1,7 +1,5 @@
-const { databaseConfig } = require("../../../../config");
-const { base } = require("../../../classes/database");
-
-class language extends base {
+const { database, databaseBase } = require("../../../classes/database");
+class language extends databaseBase {
     create(slug, name, extension) {
         return this.createQuery(
             "INSERT INTO `languages`(`id`, `slug`, `name`, `extension`) VALUES (NULL, '" +
@@ -45,7 +43,5 @@ class language extends base {
         return this.createQuery(updateString + "WHERE slug='" + slug + "'");
     }
 }
-const database = new language(databaseConfig);
-database.connect();
-
-module.exports = database;
+const languageDatabase = new language(database);
+module.exports = languageDatabase;
