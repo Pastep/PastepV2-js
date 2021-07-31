@@ -15,7 +15,6 @@ router.get("/", async(request, response) => {
     } else if (request.body.slug) {
         language = await languageDatabase.getBySlug(request.body.slug);
     }
-    console.log(language);
     if (language.length) {
         response.json(language[0]);
         return;
