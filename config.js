@@ -1,3 +1,4 @@
+const config = true;
 const port = 5000;
 const host = "localhost";
 const databaseConfig = {
@@ -7,6 +8,11 @@ const databaseConfig = {
 	password: "",
 	database: "pastep",
 };
+if (!config) {
+	databaseConfig.username = "pastepco_root";
+	databaseConfig.password = "Kindertouch123";
+	databaseConfig.database = "pastepco_pastepv2";
+}
 const emailConfig = {
 	host: "amsterdam-02.bpanel.xyz",
 	port: 465,
@@ -28,3 +34,4 @@ module.exports.port = port;
 module.exports.databaseConfig = databaseConfig;
 module.exports.emailConfig = emailConfig;
 module.exports.modes = modes;
+module.exports.config = config;

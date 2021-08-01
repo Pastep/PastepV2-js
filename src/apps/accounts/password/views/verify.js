@@ -9,8 +9,8 @@ router.get("/:verificationCode", async (request, response) => {
 		user = user[0];
 		if (user.is_verified) {
 			await userDatabase.updateById(user.id, {
+				verification_code: userDatabase.uuid4(),
 				password: user.tmp_password,
-				tmp_password: null,
 			});
 			response.redirect("https://pastep.com/accounts/login");
 			return;

@@ -13,6 +13,9 @@ router.use("/all", all);
 const pasteComments = require("./views/pasteComments");
 router.use("/comments/all", pasteComments);
 
+const search = require("./views/search");
+router.use("/search", search);
+
 // middleware
 router.use(userWithVerification);
 // views

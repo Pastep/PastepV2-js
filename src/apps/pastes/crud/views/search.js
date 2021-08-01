@@ -1,10 +1,14 @@
 const express = require("express");
-const markdown = require("markdown");
 const router = express.Router();
+const markdown = require("markdown");
 const pasteDatabase = require("../../models/paste");
 const userDatabase = require("../../../accounts/models/user");
-
 router.get("/", async (request, response) => {
+	if (!request.query.title) {
+		return response.status(400).json({
+			message: "title is missing.",
+		});
+	}
 	let pastes;
 	let likeInner = "";
 	if (request.headers["authorization"]) {
@@ -33,15 +37,18 @@ router.get("/", async (request, response) => {
 	if (request.query.user) {
 		pastes = Array.from(
 			await pasteDatabase.createQuery(
-				queryString + " WHERE pastes.user=" + request.query.user
+				queryString +
+					` WHERE pastes.user=${request.query.user} AND pastes.title LIKE '%${request.query.title}%'`
 			)
 		);
 	} else {
-		pastes = Array.from(await pasteDatabase.createQuery(queryString));
+		pastes = Array.from(
+			await pasteDatabase.createQuery(
+				queryString + ` WHERE pastes.title LIKE '%${request.query.title}%'`
+			)
+		);
 	}
-
 	pastes = pastes.filter((item) => item.mode == 0);
-
 	if (request.query.limit && request.query.latest === "yes") {
 		pastes = pastes.slice(
 			pastes.length - parseInt(request.query.limit),
