@@ -1,6 +1,6 @@
 const config = true;
 const port = 5000;
-const host = "localhost";
+let host = "localhost";
 const databaseConfig = {
 	host: "localhost",
 	port: 3306,
@@ -12,6 +12,7 @@ if (!config) {
 	databaseConfig.username = "pastepco_root";
 	databaseConfig.password = "Kindertouch123";
 	databaseConfig.database = "pastepco_pastepv2";
+	host = "https://api.pastep.com";
 }
 const emailConfig = {
 	host: "amsterdam-02.bpanel.xyz",

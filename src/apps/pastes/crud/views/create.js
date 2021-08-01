@@ -3,7 +3,7 @@ const router = express.Router();
 const { pasteSchemaValidate } = require("../../../../classes/schemas");
 const pasteDatabase = require("../../models/paste");
 const languageDatabase = require("../../../languages/models/language");
-
+const { createNewPasteLog } = require("../../../../classes/discord");
 // view
 router.post("/", async (request, response) => {
 	const { error } = pasteSchemaValidate(request.body);
@@ -37,6 +37,12 @@ router.post("/", async (request, response) => {
 				name: request.body.name,
 				id: result.insertId,
 			});
+			request.body.language = language.slug;
+			createNewPasteLog({
+				user: request.user,
+				paste: request.body,
+			});
+
 			return;
 		}
 		response.status(404).json({
