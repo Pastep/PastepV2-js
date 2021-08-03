@@ -12,7 +12,7 @@ if (!config) {
 	databaseConfig.username = "pastepco_root";
 	databaseConfig.password = "Kindertouch123";
 	databaseConfig.database = "pastepco_pastepv2";
-	host = "https://api.pastep.com";
+	host = "api.pastep.com";
 }
 const emailConfig = {
 	host: "amsterdam-02.bpanel.xyz",

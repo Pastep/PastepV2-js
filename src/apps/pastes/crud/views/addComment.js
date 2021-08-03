@@ -2,7 +2,15 @@ const express = require("express");
 const router = express.Router();
 const pasteDatabase = require("../../models/paste");
 const commentDatabase = require("../../models/comment");
-
+const rateLimit = require("express-rate-limit");
+const addCommentLimiter = rateLimit({
+	windowMs: 5 * 60 * 1000,
+	max: 3,
+	message: {
+		error: "Too many comments from this ip.",
+	},
+});
+router.use(addCommentLimiter);
 router.post("/", async (request, response) => {
 	if (!request.body.paste || !request.body.content) {
 		return response.status(400).json({

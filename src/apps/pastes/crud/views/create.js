@@ -4,6 +4,15 @@ const { pasteSchemaValidate } = require("../../../../classes/schemas");
 const pasteDatabase = require("../../models/paste");
 const languageDatabase = require("../../../languages/models/language");
 const { createNewPasteLog } = require("../../../../classes/discord");
+const rateLimit = require("express-rate-limit");
+const createPasteRateLimit = rateLimit({
+	windowMs: 5 * 60 * 1000,
+	max: 5,
+	message: {
+		error: "Too many pastes created from this ip.",
+	},
+});
+router.use(createPasteRateLimit);
 // view
 router.post("/", async (request, response) => {
 	const { error } = pasteSchemaValidate(request.body);

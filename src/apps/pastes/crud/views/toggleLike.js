@@ -2,7 +2,15 @@ const express = require("express");
 const router = express.Router();
 const likeDatabase = require("../../models/like");
 const pasteDatabase = require("../../models/paste");
-
+const rateLimit = require("express-rate-limit");
+const toggleLikeLimiter = rateLimit({
+	windowMs: 1 * 60 * 1000,
+	max: 3,
+	message: {
+		error: "Too many likes from this ip",
+	},
+});
+router.use(toggleLikeLimiter);
 router.post("/", async (request, response) => {
 	if (!request.body.paste) {
 		return response.status(400).json({

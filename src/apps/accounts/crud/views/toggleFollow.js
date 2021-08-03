@@ -3,6 +3,15 @@ const router = express.Router();
 const { userWithVerification } = require("../../../../classes/api");
 const followersDatabase = require("../../models/followers");
 const userDatabase = require("../../models/user");
+const rateLimit = require("express-rate-limit");
+const toggleFollowLimiter = rateLimit({
+	windowMs: 5 * 60 * 1000,
+	max: 10,
+	message: {
+		error: "Too many users toggled followed by this ip.",
+	},
+});
+router.use(toggleFollowLimiter);
 router.use(userWithVerification);
 router.post("/", async (request, response) => {
 	if (!request.body.target) {

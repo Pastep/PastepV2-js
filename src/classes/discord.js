@@ -30,6 +30,9 @@ function createLog({ webhook, body }) {
 }
 
 const createNewPasteLog = ({ user, paste }) => {
+	const userAvatar = user.avatar
+		? `https://${host}/avatars/${user.avatar}`
+		: "https://pastep.com/images/guest.jpg";
 	const webhookClient = new Discord.WebhookClient(
 		"806095884190220288",
 		"bG5d3PlnRFm6vCK5oWz_Xc3HFhvQls_eHXbw3ff0yfjHDjn8Gqc1uVkUnksX9JfOxWbD"
@@ -43,7 +46,7 @@ const createNewPasteLog = ({ user, paste }) => {
 	const embed = new Discord.MessageEmbed()
 		.setAuthor(
 			`${user.persianUsername || user.username} پیست کرد!`,
-			`https://${host}/avatars/${user.avatar}}`,
+			userAvatar,
 			"https://pastep.com/accounts/view/" + user.username
 		)
 		.setFooter("Pastep.com | پیستپ")

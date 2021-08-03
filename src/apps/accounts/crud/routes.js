@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { host } = require("../../../../config");
 let router = express.Router();
 
 const create = require("./views/create");
@@ -11,16 +11,19 @@ const toggleFollow = require("./views/toggleFollow");
 const getFollowers = require("./views/getFollowers");
 const getFollowings = require("./views/getFollowings");
 
-router.use("/create", create);
 router.use("/login", login);
 router.use("/update", update);
 router.use("/get", get);
 router.use("/avatar", avatar);
-router.use("/people/toggleFollow", toggleFollow);
 router.use("/people/followers", getFollowers);
 router.use("/people/followings", getFollowings);
-router.get("/", (request, response) => {
-	response.send("this is crud router");
+
+router.use("/people/toggleFollow", toggleFollow);
+
+router.use((request, res, next) => {
+	res.setHeader("Access-Control-Allow-Origin", `https://${host}`);
+	next();
 });
+router.use("/create", create);
 
 module.exports = router;
