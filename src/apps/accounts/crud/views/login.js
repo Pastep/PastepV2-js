@@ -7,7 +7,7 @@ const loginLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
 	max: 5,
 	message: {
-		error: "Too many logins from this ip.",
+		message: "Too many logins from this ip.",
 	},
 });
 router.use(loginLimiter);

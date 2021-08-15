@@ -4,7 +4,7 @@ const md = require("markdown-it")();
 const router = express.Router();
 const pasteDatabase = require("../../models/paste");
 const userDatabase = require("../../../accounts/models/user");
-
+const likeDatabase = require("../../models/like");
 router.get("/", async (request, response) => {
 	let paste;
 	let likeInner = "";
@@ -48,6 +48,8 @@ router.get("/", async (request, response) => {
 	}
 	if (paste.length) {
 		paste = paste[0];
+		let likesCount = await likeDatabase.getByPaste(paste.id);
+		likesCount = likesCount.length;
 		if (paste.mode == 1) {
 			if (request.headers["authorization"]) {
 				if (request.headers.authorization.startsWith("Bearer")) {
@@ -100,6 +102,7 @@ router.get("/", async (request, response) => {
 									extension: paste.extension,
 								},
 								liked: paste.like_id ? true : false,
+								likesCount: likesCount,
 							});
 							return;
 						}
@@ -156,6 +159,7 @@ router.get("/", async (request, response) => {
 				extension: paste.extension,
 			},
 			liked: paste.like_id ? true : false,
+			likesCount: likesCount,
 		});
 		return;
 	} else {

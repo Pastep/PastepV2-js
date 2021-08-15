@@ -4,23 +4,23 @@ let host = "localhost";
 const databaseConfig = {
 	host: "localhost",
 	port: 3306,
-	username: "root",
-	password: "",
+	username: "remote",
+	password: "Kindertouch123",
 	database: "pastep",
 };
 if (!config) {
-	databaseConfig.username = "pastepco_root";
+	databaseConfig.username = "remote";
 	databaseConfig.password = "Kindertouch123";
-	databaseConfig.database = "pastepco_pastepv2";
+	databaseConfig.host = "194.5.195.199";
 	host = "api.pastep.com";
 }
 const emailConfig = {
-	host: "amsterdam-02.bpanel.xyz",
+	host: "mail.pastep.com",
 	port: 465,
 	secure: true,
 	auth: {
 		user: "noreply@pastep.com",
-		pass: "8gm.27j^!aO-",
+		pass: "Kindertouch123",
 	},
 };
 

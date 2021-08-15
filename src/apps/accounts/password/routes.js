@@ -8,7 +8,7 @@ const passwordRateLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
 	max: 5,
 	message: {
-		error: "Too many password requests from this ip.",
+		message: "Too many password requests from this ip.",
 	},
 });
 router.use(passwordRateLimiter);

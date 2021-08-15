@@ -35,12 +35,31 @@ router.get("/", async (request, response) => {
 			"SELECT pastes.id, pastes.name as paste_name, pastes.title,pastes.content, pastes.mode, languages.id as languageId, languages.slug, languages.name, languages.persianName, languages.extension, pastes.readme, pastes.shortDescription, pastes.password, users.id as userId, users.username, users.persianUsername, users.avatar, users.bio FROM `pastes` INNER JOIN `users` ON pastes.user=users.id INNER JOIN languages on pastes.language=languages.id";
 	}
 	if (request.query.user) {
-		pastes = Array.from(
-			await pasteDatabase.createQuery(
-				queryString +
-					` WHERE pastes.user=${request.query.user} AND pastes.title LIKE '%${request.query.title}%'`
-			)
-		);
+		if (isNaN(request.query.user)) {
+			let user = await userDatabase.getByUsername(request.query.user);
+			if (user.length) {
+				user = user[0];
+				pastes = Array.from(
+					await pasteDatabase.createQuery(
+						queryString +
+							` WHERE pastes.user=${user.id} AND pastes.title LIKE '%${request.query.title}%'`
+					)
+				);
+			} else {
+				pastes = Array.from(
+					await pasteDatabase.createQuery(
+						queryString + ` WHERE pastes.title LIKE '%${request.query.title}%'`
+					)
+				);
+			}
+		} else {
+			pastes = Array.from(
+				await pasteDatabase.createQuery(
+					queryString +
+						` WHERE pastes.user=${request.query.user} AND pastes.title LIKE '%${request.query.title}%'`
+				)
+			);
+		}
 	} else {
 		pastes = Array.from(
 			await pasteDatabase.createQuery(

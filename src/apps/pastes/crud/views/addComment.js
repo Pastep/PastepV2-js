@@ -7,7 +7,7 @@ const addCommentLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
 	max: 3,
 	message: {
-		error: "Too many comments from this ip.",
+		message: "Too many comments from this ip.",
 	},
 });
 router.use(addCommentLimiter);

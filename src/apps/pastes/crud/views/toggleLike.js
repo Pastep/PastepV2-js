@@ -7,7 +7,7 @@ const toggleLikeLimiter = rateLimit({
 	windowMs: 1 * 60 * 1000,
 	max: 3,
 	message: {
-		error: "Too many likes from this ip",
+		message: "Too many likes from this ip",
 	},
 });
 router.use(toggleLikeLimiter);

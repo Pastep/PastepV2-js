@@ -9,7 +9,7 @@ const createAccountLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
 	max: 5,
 	message: {
-		error: "Too many accounts created from this ip.",
+		message: "Too many accounts created from this ip.",
 	},
 });
 router.use(createAccountLimiter);

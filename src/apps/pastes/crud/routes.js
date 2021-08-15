@@ -16,6 +16,9 @@ router.use("/comments/all", pasteComments);
 const search = require("./views/search");
 router.use("/search", search);
 
+const trending = require("./views/trending");
+router.use("/trending", trending);
+
 // middleware
 router.use(userWithVerification);
 // views

@@ -7,20 +7,26 @@ const { host, port } = require("./config");
 const languages = require("./src/apps/languages/routes");
 const accounts = require("./src/apps/accounts/routes");
 const pastes = require("./src/apps/pastes/routes");
+var fs = require("fs");
+var util = require("util");
+var log_file = fs.createWriteStream(__dirname + "/log.log", { flags: "w" });
 const limiter = rateLimit({
 	windowMs: 10 * 60 * 1000,
 	max: 200,
 	statusCode: 429,
 	message: {
-		error: "You're rate limited.",
+		message: "You're rate limited.",
 	},
 });
 const { serverError } = require("./src/classes/errors");
+app.set("trust proxy", true);
 app.use("*", cors());
 app.use(limiter);
 app.use((request, res, next) => {
-	console.log(`${request.method}:${request.url}`);
+	const logString = `${request.method}:${request.url} ${request.ip}`;
 	next();
+	log_file.write(util.format(logString) + "\n");
+	console.log(logString);
 });
 app.use("/avatars", express.static("./public/avatars"));
 app.use(express.json({ limit: "50mb" }));
