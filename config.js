@@ -1,4 +1,4 @@
-const config = true;
+const config = false;
 const port = 5000;
 let host = "localhost";
 const databaseConfig = {
