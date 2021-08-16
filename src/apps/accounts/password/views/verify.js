@@ -16,6 +16,7 @@ router.get("/:verificationCode", async (request, response) => {
 			return;
 		}
 		response.status(401).send("Please verify email.");
+		return;
 	}
 	response.status(401).send("Verification code is incorrect.");
 });

@@ -11,6 +11,7 @@ router.get("/:verificationCode", async (request, response) => {
 			is_verified: 1,
 		});
 		response.redirect("https://pastep.com/accounts/login");
+		return;
 	}
 	response.status(401).send("Verification code is incorrect.");
 });
