@@ -1,4 +1,4 @@
-const config = false;
+const config = false; //fakepush
 const port = 5000;
 let host = "localhost";
 const databaseConfig = {
