@@ -1,11 +1,11 @@
-const config = false;
+const config = true;
 const port = 5000;
 let host = "localhost";
 const databaseConfig = {
 	host: "localhost",
 	port: 3306,
-	username: "remote",
-	password: "Kindertouch123",
+	username: "root",
+	password: "",
 	database: "pastep",
 };
 if (!config) {
@@ -15,11 +15,9 @@ if (!config) {
 	host = "api.pastep.com";
 }
 const emailConfig = {
-	host: "mail.pastep.com",
-	port: 465,
-	secure: true,
+	service: "gmail",
 	auth: {
-		user: "noreply@pastep.com",
+		user: "pastepcom@gmail.com",
 		pass: "Kindertouch123",
 	},
 };
