@@ -11,7 +11,7 @@ const databaseConfig = {
 if (!config) {
 	databaseConfig.username = "remote";
 	databaseConfig.password = "Kindertouch123";
-	databaseConfig.host = "194.5.195.199";
+	databaseConfig.host = "localhost";
 	host = "api.pastep.com";
 }
 const emailConfig = {
