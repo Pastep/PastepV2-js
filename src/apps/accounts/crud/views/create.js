@@ -7,7 +7,7 @@ const { host } = require("../../../../../config");
 const rateLimit = require("express-rate-limit");
 const createAccountLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
-	max: 5,
+	max: 2,
 	message: {
 		message: "Too many accounts created from this ip.",
 	},
