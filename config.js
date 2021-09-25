@@ -2,10 +2,10 @@ const config = true;
 const port = 5000;
 let host = "localhost";
 const databaseConfig = {
-	host: "localhost",
+	host: "192.168.1.50",
 	port: 3306,
-	username: "root",
-	password: "",
+	username: "remote",
+	password: "Kindertouch123",
 	database: "pastep",
 };
 if (!config) {

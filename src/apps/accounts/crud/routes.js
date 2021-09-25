@@ -20,10 +20,6 @@ router.use("/people/followings", getFollowings);
 
 router.use("/people/toggleFollow", toggleFollow);
 
-router.use((request, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", `https://pastep.com`);
-	next();
-});
 router.use("/create", create);
 
 module.exports = router;

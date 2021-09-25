@@ -16,7 +16,7 @@ router.get("/", async (request, response) => {
 				result = result[0];
 				if (result.is_verified) {
 					likeInner +=
-						"LEFT JOIN likes on pastes.id=likes.paste AND users.id=" +
+						"LEFT JOIN likes on pastes.id=likes.paste AND likes.user=" +
 						result.id;
 				}
 			}

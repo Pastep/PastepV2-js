@@ -15,14 +15,14 @@ router.get("/", async (request, response) => {
 				result = result[0];
 				if (result.is_verified) {
 					likeInner +=
-						"LEFT JOIN likes on pastes.id=likes.paste AND users.id=" +
+						"LEFT JOIN likes on pastes.id=likes.paste AND likes.user=" +
 						result.id;
 				}
 			}
 		}
 	}
 	const queryString =
-		"SELECT pastes.id, pastes.name as paste_name, pastes.title,pastes.content, pastes.mode, languages.id as languageId, languages.slug, languages.name, languages.persianName, languages.extension, pastes.readme, pastes.shortDescription, pastes.password, users.id as userId, users.username, users.persianUsername, users.avatar, users.bio FROM `pastes` INNER JOIN `users` ON pastes.user=users.id INNER JOIN languages on pastes.language=languages.id " +
+		"SELECT likes.id as like_id, pastes.id, pastes.name as paste_name, pastes.title,pastes.content, pastes.mode, languages.id as languageId, languages.slug, languages.name, languages.persianName, languages.extension, pastes.readme, pastes.shortDescription, pastes.password, users.id as userId, users.username, users.persianUsername, users.avatar, users.bio FROM `pastes` INNER JOIN `users` ON pastes.user=users.id INNER JOIN languages on pastes.language=languages.id " +
 		likeInner;
 	let extraQuery = "";
 	if (request.query.user) {
