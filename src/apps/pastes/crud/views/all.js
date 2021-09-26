@@ -7,10 +7,11 @@ const userDatabase = require("../../../accounts/models/user");
 router.get("/", async (request, response) => {
 	let pastes;
 	let likeInner = "";
+	let result;
 	if (request.headers["authorization"]) {
 		if (request.headers.authorization.startsWith("Bearer")) {
 			let authorization = request.headers.authorization.replace("Bearer ", "");
-			let result = await userDatabase.getByToken(authorization);
+			result = await userDatabase.getByToken(authorization);
 			if (result.length != 0) {
 				result = result[0];
 				if (result.is_verified) {
@@ -40,7 +41,9 @@ router.get("/", async (request, response) => {
 		pastes = Array.from(await pasteDatabase.createQuery(queryString));
 	}
 
-	pastes = pastes.filter((item) => item.mode == 0);
+	pastes = pastes.filter((item) => {
+		return item.mode == 0 || (result && item.userId == result.id);
+	});
 
 	if (request.query.limit && request.query.latest === "yes") {
 		pastes = pastes.slice(
