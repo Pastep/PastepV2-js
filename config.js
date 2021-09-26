@@ -16,8 +16,9 @@ if (!config) {
 }
 const emailConfig = {
 	service: "gmail",
+	host: "smtp.gmail.com",
 	auth: {
-		user: "pastepcom@gmail.com",
+		user: "pastepsup@gmail.com",
 		pass: "Kindertouch123",
 	},
 };
