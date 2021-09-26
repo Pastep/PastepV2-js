@@ -34,8 +34,8 @@ const createNewPasteLog = ({ user, paste }) => {
 		? `https://${host}/avatars/${user.avatar}`
 		: "https://pastep.com/images/guest.jpg";
 	const webhookClient = new Discord.WebhookClient(
-		"806095884190220288",
-		"bG5d3PlnRFm6vCK5oWz_Xc3HFhvQls_eHXbw3ff0yfjHDjn8Gqc1uVkUnksX9JfOxWbD"
+		"891667736189624330",
+		"kkxGPrfEEudLxMCPnMjUh-Rv1J0EjivqXYbAC616HseThI0CPKWGQGjVYOcq87n2B70e"
 	);
 	const currentDate = new Date();
 	const content =
