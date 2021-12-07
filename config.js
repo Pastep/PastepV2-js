@@ -2,15 +2,15 @@ const config = true;
 const port = 5000;
 let host = "localhost";
 const databaseConfig = {
-	host: "192.168.1.50",
+	host: "127.0.0.1",
 	port: 3306,
-	username: "remote",
-	password: "Kindertouch123",
+	username: "root",
+	password: "",
 	database: "pastep",
 };
 if (!config) {
 	databaseConfig.username = "remote";
-	databaseConfig.password = "Kindertouch123";
+	databaseConfig.password = "hahhahhaha";
 	databaseConfig.host = "localhost";
 	host = "api.pastep.com";
 }
@@ -18,8 +18,8 @@ const emailConfig = {
 	service: "gmail",
 	host: "smtp.gmail.com",
 	auth: {
-		user: "pastepsup@gmail.com",
-		pass: "Kindertouch123",
+		user: "yourmom@gmail.com",
+		pass: "your mama big",
 	},
 };
 
